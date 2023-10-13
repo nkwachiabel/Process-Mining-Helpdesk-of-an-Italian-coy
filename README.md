@@ -77,17 +77,30 @@ The event log was reviewed to ensure the data contained were okay to use for pro
 -  Finally, the number of tickets by customer shows how many times a customer logs an issue. Note that the same customer may log issues for the different products used. For example, customer Value 22 has logged over 200 tickets across 10 products. There is also a possibility that the customer is not knowledgeable enough or logging different tickets for different issues.
 
 ## Process discovery based on event log data
-![alt text](https://github.com/nkwachiabel/Process-Mining-Order-to-cash/blob/main/Images/Process%20Discovery.jpg?raw=true)
+![alt text](https://github.com/nkwachiabel/Process-Mining-Helpdesk-of-an-Italian-coy/blob/main/Images/Process%20discovery.jpg?raw=true)
 
-This page helps in analysing the process. It contains various filters including variants, activities, first activity and connections. In understanding the process, 3 different analysis was carried out; (i) variant analysis, (ii) process flow and (iii) transition matrix.
-* <b>Variant analysis</b>: The variant analysis starts by identifying the trace of activities in sequential order that each order request follows. After this, similar traces were grouped into process variants. This analysis shows that there are 3,872 different variants.
-  * 2,719 variants occured once, 422 variants occured only twice and 190 variants occured thrice. The various variants does not mean that there is one correct variant. However, a lot of variants means that there is a need for a more standardized process.
-  * The most occuring variant occurs in 14,979 cases, followed by Variant 2 in 9687 cases, Variant 3 in 8,809 cases.
-  * The first five variants accounts for 41,037 cases which accounts for approximately 62% of all cases.
+This page helps in analysing the actual process based on the filtered event log. It contains various filters including variants, activities, first activity and connections. In understanding the process, different analysis were carried out;
+
+* <b>Recurrence rate</b>: This rate looks at how many times the same customer calls for the same product. We get this number and convert this to a percentage of the total tickets in the eventlog. This shows that of all the tickets raised, approximately 12% of them were for the same product and from the same customer. This can be as a result of various reasons (i) lack of knowledge on the part of the agents to appropriately resolve the customer's issue (ii) the user manual is not descriptive enough to help users solve their issues. Note that this assumes that the customer is calling for the same issue on the same product which might not be the case all the time. A limitation to this analysis is that the dataset did not give more information about the reason for the call because this would be more useful to this analysis.
+* <b>First Call Resolution Rate</b>: This is basically the opposite of the recurrence rate. This looks at those tickets that were resolved on the first call. 
+* <b>Escalation rate</b>: This rate looks at the amount of cases which requires escalation. Only 2% of all tickets raised requires escalation. While the escalation rate is low, it is surprising that the recurrence rate is high. This reinforces the fact that the low level agents should be trained on when to escalate issues to reduce the recurrence rate.
+* <b>Connections table</b>: This table shows all the possible preceding and succeeding activities in the dataset. Here, there are 52 unique connections between 14 activities. This also gives us a glance of where there are movements between activities which should not have happened and how many times they happen. For example, we can see that
+    - <i>Resolve ticket</i> was followed by <i>Closed</i> 4,479 times i.e., in all tickets. We can also see that
+    - <i>Assign seriousness</i> was followed by <i>Assign seriousness</i> 438 times,
+    - <i>Resolve ticket</i> was followed by <i>Resolve ticket</i> 246 times,
+    - <i>Wait</i> was followed by <i>Wait</i> 101 times,
+    - <i>Take in charge ticket</i> was followed by <i>Take in charge ticket</i> 96 times
+    - <i>Closed</i> was followed by <i>Closed</i> 14 times
+This shows a possible improvement area in the software to avoid reassigning the same activities to the same ticket multiple times.
+
+* <b>Variant analysis</b>: The variant analysis starts by identifying the trace of activities in sequential order that each order request follows. After this, similar traces were grouped into process variants. This analysis shows that there are 193 different variants. That is 193 different process a ticket follows from start to finish.
+  * Out of the 193 variants, 111 variants occured once, 22 variants occured twice and 11 variants occured thrice. Given that we do not have only one variant, this does not mean that a lot of variants are wrong. A ticket may follow various process to be resolved, hence the various variants. However, a lot of variants means that there is a need for a more standardized process.
+  * The most occuring variant (Variant 1) occurs in 2,366 cases, followed by Variant 2 in 552 cases, and Variant 3 in 228 cases.
+  * As shown in the Data Overview page, The first five variants accounts for 3,523 cases which accounts for approximately 78.65% of all cases.
   
-* <b>Process flow visualisation</b>: The process flow graph shows the process flow from the start to finish for the top 3 variants highlighting the medium days between activities. The Graphviz library was used to automatically generate a visual process model based on the event log data. The process starts from either Create Sales Order Item or Create Delivery and ends with Create Invoice. The <i>Create Sales Order Item</i> activity occurs in all order requests.
+* <b>Process flow visualisation</b>: The process flow graph shows the process flow from the start to finish. The process starts from either <i>Assign Seriousness</i> or <i>Insert ticket</i> and ends with <i>Closed</i> i.e., when a ticket is closed. The process flow diagram here focuses on the top 5 variants highlighting the medium days between activities. The Graphviz library was used to automatically generate a visual process model based on the event log data. As indicated on the diagram, the activity where the most time is spent is moving from <i>Resolve ticket</i> to <i>Closed</i> (30 days). It is also evident that keeping tickets on wait extends the time to resolve a ticket and this may lead to breaches in SLAs.
 
-* <b>Events transition matrix</b>: The aim of this transition matrix shows how the cases moves from one event to another. The row shows the starting event, while the column shows the preceeding events, while the numbers indicates how many times this was done. For example, Billing Block changed was followed by Billing Block set once.
+* <b>Events transition matrix</b>: The aim of this transition matrix shows how the cases moves from one event to another. The row shows the starting event, while the column shows the preceeding events, while the numbers indicates how many times this was done. This gives an alternate view of the connections. For example, we can see clearly here that <i>Closed</i> was followed by <i>Closed</i> 14 times like mentioned above.
 
 The following were noted:
 
