@@ -85,13 +85,14 @@ This page helps in analysing the actual process based on the filtered event log.
 * <b>First Call Resolution Rate</b>: This is basically the opposite of the recurrence rate. This looks at those tickets that were resolved on the first call. 
 * <b>Escalation rate</b>: This rate looks at the amount of cases which requires escalation. Only 2% of all tickets raised requires escalation. While the escalation rate is low, it is surprising that the recurrence rate is high. This reinforces the fact that the low level agents should be trained on when to escalate issues to reduce the recurrence rate.
 * <b>Connections table</b>: This table shows all the possible preceding and succeeding activities in the dataset. Here, there are 52 unique connections between 14 activities. This also gives us a glance of where there are movements between activities which should not have happened and how many times they happen. For example, we can see that
-    - <i>Resolve ticket</i> was followed by <i>Closed</i> 4,479 times i.e., in all tickets. We can also see that
+    - <i>Resolve ticket</i> was followed by <i>Closed</i> 4,479 times i.e., in all tickets.
     - <i>Assign seriousness</i> was followed by <i>Assign seriousness</i> 438 times,
     - <i>Resolve ticket</i> was followed by <i>Resolve ticket</i> 246 times,
     - <i>Wait</i> was followed by <i>Wait</i> 101 times,
     - <i>Take in charge ticket</i> was followed by <i>Take in charge ticket</i> 96 times
     - <i>Closed</i> was followed by <i>Closed</i> 14 times
-This shows a possible improvement area in the software to avoid reassigning the same activities to the same ticket multiple times.
+
+This shows a possible improvement area in the software to avoid reassigning the same activities to the same ticket multiple times. This can also indicate repetitive activities.
 
 * <b>Variant analysis</b>: The variant analysis starts by identifying the trace of activities in sequential order that each order request follows. After this, similar traces were grouped into process variants. This analysis shows that there are 193 different variants. That is 193 different process a ticket follows from start to finish.
   * Out of the 193 variants, 111 variants occured once, 22 variants occured twice and 11 variants occured thrice. Given that we do not have only one variant, this does not mean that a lot of variants are wrong. A ticket may follow various process to be resolved, hence the various variants. However, a lot of variants means that there is a need for a more standardized process.
@@ -102,42 +103,14 @@ This shows a possible improvement area in the software to avoid reassigning the 
 
 * <b>Events transition matrix</b>: The aim of this transition matrix shows how the cases moves from one event to another. The row shows the starting event, while the column shows the preceeding events, while the numbers indicates how many times this was done. This gives an alternate view of the connections. For example, we can see clearly here that <i>Closed</i> was followed by <i>Closed</i> 14 times like mentioned above.
 
-The following were noted:
+## Timing analysis
+![alt text](https://github.com/nkwachiabel/Process-Mining-Helpdesk-of-an-Italian-coy/blob/main/Images/Timing%20analysis.jpg?raw=true)
 
-* <b>Sequence-related issues</b>:
- - Goods Issue to Credit Check Denied: There are 40 cases where the credit check was denied after the Goods Issue activity. This indicates a lack of control in the system as goods could be issued to customers who are not credit worthy.
- - Goods Issue to Delivery Block Set: There are 15 cases where the Goods Issue activity was followed by Delivery Block Set activity. This happened a total of 13 times.
- - Delivery Block Set to Create Delivery: There are 134 cases where despite the Delivery Block Set activity was immediately followed by Create Delivery.
- - Delivery Block Set to Goods Issue: This occures in 4 cases.
-
-* <b>Repeated activities</b>: There were several repeated activities. They include the following amongst others:
- - Create delivery
- - Goods issue
- - Change scheduled date
- - Pro forma invoice
-
-* <b>Connections</b>: The connection column below shows the connections between events i.e., from the preceeding activity to the next activity. From this, there are 349 possible connections.
-
-### Unwanted activities
-![alt text](https://github.com/nkwachiabel/Process-Mining-Order-to-cash/blob/main/Images/Unwanted%20activities.jpg?raw=true)
-
-Unwanted activities: Looking at the variants above, we can see that there are about 6 major activities in the top 5 variants. They include:
- - Create Sales Order Item
- - Create Invoice
- - Create Delivery
- - Goods Issue
- - Pro forma invoice
- - Create Quotation
-
-The remaining activities are considered Unwanted activities.
-
-From the above, there are 22 unwanted activities which occured 64,509 times in 23,177 orders. 35% of cases includes unwanted activities. The unwanted activities by business area shows that unwanted activities occurs more in Business Area 7000. Of the unwanted activities, the top three includes <i>Change Scheduled date</i> occurs the most (47.66%), followed by <i>Remove Reason for Rejection</i> (17.72%) and <i>Credit Check Release</i>. In addition to this, the median duration of cases with these unwanted activities is 9 days, compared to 5 days with cases without these activities. This indicates another area of Value improvement.
-
-
-### Changes
-![alt text](https://github.com/nkwachiabel/Process-Mining-Order-to-cash/blob/main/Images/Changes.jpg?raw=true)
-
-There are changes which occur in the eventlog. This changes causes delays to the order requests. There are 11 change activities, 35,426 change events and they occur in 14,775 orders. The most frequent change activity is <i>Change Scheduled date</i> which occurs approx. 87%. The medium order without the changes is 5 days compared to 12 days for those cases with change activities. This indicates that these changes cause delays in fulfilling the order requests and these changes should be minimised to ensure a high customer satisfaction rate.
+This analysis was done to analyse the bottlenecks in the process relating to timing. To know how long a process should last, we used the median duration of the cases as the performance indicator. The median was chosen rather than the average because of the presence of outliers which may skew the result. In the overall ticket, the median duration was 39 days. 
+* The first thing that stood out is the duration of tickets. No ticket was closed in less than 30 days and greater than 60 days. A further analysis was made and it appears that the close activity is done automatically if a ticket is left open for up to 59 days. This is why the medium time between <i>Resolve ticket</i> to <i>Closed</i> activity on the median duration between activities table takes 30 days. This is because once a ticket is resolved, the users do not bother closing it themselves so it closes autimatically when it get to 60 days. One can then decide to say that the effective duration for a ticket is when it is resolved. This was considered, but analysis showed that even when a ticket is resolved, it can still be moved to <i>Take incharge ticket</i>. Therefore, the end activity was still the <i>Closed</i> activity.
+* One of the metric regarding timing is the Service Level Agreement (SLA) adherence. If there is an SLA, we wanted to confirm the %age of cases that breached this SLA. We assumed that the median was the SLA (39 days). Analysis showed that 28% of the ticket resolved breached the SLA target. This can be an indicator that the customers needs are not adequately satisfied and there is a risk of losing customers.
+* The median duration by product table shows the duration by product. It shows that the Value 18 product takes more time to complete compared to the other products. It is important to highlight that even though product Value 1 accounts for more tickets, they are usually resolved within 38 days, 1 day less than the assumed SLA.
+* The median duration between activities table shows the median duration for each connection. This shows that asides the <i>Resolve ticket</i> to <i>Closed</i> activities, other activities are done in less time. Activities like <i>DUPLICATE</i>, <i>VERIFIED</i>, <i>Create SW anomaly</i>, <i>Resolve SW anomaly</i> which do not occur frequently have the high medium duration. However, other activities are done in 15 days or less. Therefore, more work should be done to either improve the medium time for cases that pass through these less occuring activities or it should be avoided as much as possible to avoid delays.
 
 ### Process benchmarking
 ![alt text](https://github.com/nkwachiabel/Process-Mining-Order-to-cash/blob/main/Images/Process%20Benchmarking.jpg?raw=true)
@@ -146,10 +119,7 @@ The process benchmarking page helps to compare different process variants using 
 
 For example, in the above we can see that while the median order fulfilment time in Variant 2 is 0 days, the median order fulfilment time is 7 days. It can further be stated that cases that starts with <i>Create Delivery</i> activity are completed faster than cases that starts with <i>Create Sales Order Item</i>. A possible explanation can be that for cases that starts with <i>Create Delivery</i> activity, the requested item is available and can be issued immediately, while for the case that starts with <i>Create Sales Order Item</i>, it takes a median of 3 days for the goods to be ready for delivery. Additionally, 2 days delay is introduced between the <i>Pro forma invoice</i> and <i>Create Invoice</i> activity. This may be because of manual approval process inherent between these activities.
 
-## Timing analysis
-![alt text](https://github.com/nkwachiabel/Process-Mining-Order-to-cash/blob/main/Images/Timing%20analysis.jpg?raw=true)
 
-This analysis was done to analyse the bottlenecks in the process relating to timing. To know how long a process should last, we used the median duration of the cases as the performance indicator. In the overall order, the median duration was 5 days. About 49% of cases did not meet this time target. When looking at the median time of the indivudual activities, Invoice cancellation takes a median of 12 days. For the transition between events, the connections that takes more time is between Creqte Quotation and Delivery Blocks. They take above 120 days. Apparently, cases which starts with <i>Create Quotation</i> takes more time than other cases. The median case duration for cases which starts with <i>Create Quotation</i> is 69 days, <i>Create Delivery</i> 1 day and <i>Create Sales Order Item</i> is 7 days. This may be as a result of delay in response from the customer when presented with quotes.
 
 ## Order details
 ![alt text](https://github.com/nkwachiabel/Process-Mining-Order-to-cash/blob/main/Images/Order%20details.jpg?raw=true)
