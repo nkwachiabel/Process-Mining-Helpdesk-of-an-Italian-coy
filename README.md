@@ -122,23 +122,29 @@ In the above, we are benchmarking Variant 1 with Variant 2. Asides the number of
 ## User analysis
 ![alt text](https://github.com/nkwachiabel/Process-Mining-Helpdesk-of-an-Italian-coy/blob/main/Images/Resource%20analysis.jpg?raw=true)
 
-This page shows information relating to a particular case by using the filter at the top right of the screen.
+This page shows information about the users. The Users and activities diagram shows the activities each user performs in the process. We can see that almost all users performs all activities and that lack of segregation of duties exists in the process. This is further seen in the Count of activities per user graph. This graph shows the count of activities done by each user. This shows that user Value 2 does most of the work across various activities compared to user Value 5 which majorly closes tickets. A further analysis was done to understand if the reason why Value 2 does most of the work is because this user have been working in this role longer. I decided to look for the first time each resource performed an activity (see Earliest timestamp per user table). It can be assumed that user Value 2 have been working here right from the first day of the events contained in the eventlog, but Value 15 the first actvity timestamp is 7 days later have significantly less activities done compared to Value 2. It appears that there is a lot of work being passed to Value 2 when compared to other users.
 
+The Handover of work between workgroup diagram shows how the activities are handed over between workgroups. Looking at this, it appears that workgroup Value 1 does majority of the work. They handover work to other workgroups and within their workgroup. Workgroups Value 2, 3 and 4 do not work with eachother. They all work with workgroup Value 1 and Value 1 splits the work to other workgroups.
 
-## Order details
-![alt text](https://github.com/nkwachiabel/Process-Mining-Order-to-cash/blob/main/Images/Order%20details.jpg?raw=true)
+The median duration of users per activity shows the median time a particular spends before executing a particular activity. This is derived by subtracting the timestamp a user completes an activity from the timestamp a user completes the preceeding activity.  This shows that even if a ticket is resolved, it takes 59 days for user Value 2 to close a ticket. This maybe attributable to the fact that user Value 2 does a lot of other activities and does not bother closing the resolved ticket. The median duration of other activities done by user Value 2 is completed in less than 6 days.
 
-This page shows information relating to a particular case by using the filter at the top right of the screen.
+## Customer dashboard
+![alt text](https://github.com/nkwachiabel/Process-Mining-Helpdesk-of-an-Italian-coy/blob/main/Images/Customer%20view.jpg?raw=true)
 
-## Open orders
-![alt text](https://github.com/nkwachiabel/Process-Mining-Order-to-cash/blob/main/Images/Open%20orders.jpg?raw=true)
+This page shows information relating to a particular customer by using the filter at the top left of the screen. It includes the process flow for all the tickets raised by the customer, the number of tickets raised, a table showing the tickets raised, the date the tickets were raised, the related products and the duration of the ticket.
 
-This page shows information relating to incomplete order requests. There are 16,524 open order requests based on the dataset which span across various business areas. From the dashboard above, we can see that the last activity of majority of the open orders is <i>Pro forma invoice</i>. This shows that most of the orders have been executed and awaiting the <i>Create Invoice</i> activity to be completed. This dashboard can be connected to the SAP system and refreshed at intervals to keep track of these open orders at certain points. Due to the introduction of Power Automate in Microsoft PowerBI, a notification can be triggered when a case gets to a particular activity, or a reminder can be sent to the responsible individual if an order has stayed in a particular activity after some days. This will prompt users to complete their tasks.
+## Ticket dashboard
+![alt text](https://github.com/nkwachiabel/Process-Mining-Helpdesk-of-an-Italian-coy/blob/main/Images/Ticket%20detains.jpg?raw=true)
+
+This page shows information relating to a particular ticket by using the filter at the top right of the screen.
 
 # Process improvement
 Based on the analysis, areas for improvement were identified such as:
-* <b>Process redesign</b>: From the process discovery, it can be seen that some controls should be put in place. There are cases where blocks were set but Delivery still occured and goods were issued. Additional controls should be put in place to avoid this.
-* Real-time dashboard: A real-time dashboard should be made available for those open cases to be monitored. This dashboard should include key metrics to ensure that they are not deviating from the expected process and reminders should be sent to process owners to ensure compliance. This would help in reducing processing times and improved overall process efficiency.
+* <b>Training</b>: Due to the high level of recurrence rate, it is suggested that the agents be trained on what to do when a ticket is raised.
+* <b>Process controls</b>: There were cases where the same activity was reassigned multiple times to the same case. More process control should be implemented to avoid this. The change should be saved if the activity changes and not anytime the same event is repeated. This will help reduce database operations.
+* <b>Ticket closure</b>: Users should be encouraged to close their tickets immediately the ticket is resolved. This will help give the company a better insight on how long it takes to reslove cases and take proper measures to improve this. A reminder can be sent to the responsible user, say 3 days after a ticket is marked resolved in order to close the ticket on time.
+* <b>Segregation of duties</b>: It appears that all users performs multiple activities and user Value 2 does most of the work. More activities should be shared to the other users or a proper segregation of duties should be done to avoid overloading some users while others have a lot of idle time.
+* Real-time dashboard: A real-time dashboard should be made available for those open tickets to be monitored. This dashboard should include key metrics to ensure that they are not deviating from the expected process and reminders should be sent to process owners to ensure compliance. This would help in reducing processing times and improved overall process efficiency.
 
 # Limitation
 No process owner was reached out to confirm the validity of the expected process
