@@ -1,6 +1,13 @@
 # Process Mining: Analyzing the helpdesk process log of an Italian company
 
-This repository contains a data analytics project that utilizes process mining methodology to analyse the real-life event log of a helpdesk process of an Italian company. The dataset contains order requests spaning 4 years from 13th January 2010 to 3rd January 2014.
+This repository contains a data analytics project that utilizes process mining methodology to analyse the real-life event log of a helpdesk process of an Italian company. The dataset contains order requests spaning 4 years from 13th January 2010 to 3rd January 2014. The dataset was gotten from [here](https://doi.org/10.4121/uuid:0c60edf1-6f83-4e75-9367-4c63b3e9d5bb).
+
+### Credits
+<b>Publisher</b>: University of Padova
+
+<b>Organisations</b>: University of Padova, Department of Mathematics
+
+<b>References</b>: [https://doi.org/10.1007/s00607-015-0441-1](https://doi.org/10.4121/uuid:0c60edf1-6f83-4e75-9367-4c63b3e9d5bb)
 
 # Project Overview
 The goal of this project is to utilize process mining techniques to:
