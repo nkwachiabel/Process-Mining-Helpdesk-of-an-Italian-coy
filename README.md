@@ -113,12 +113,16 @@ This analysis was done to analyse the bottlenecks in the process relating to tim
 * The median duration between activities table shows the median duration for each connection. This shows that asides the <i>Resolve ticket</i> to <i>Closed</i> activities, other activities are done in less time. Activities like <i>DUPLICATE</i>, <i>VERIFIED</i>, <i>Create SW anomaly</i>, <i>Resolve SW anomaly</i> which do not occur frequently have the high medium duration. However, other activities are done in 15 days or less. Therefore, more work should be done to either improve the medium time for cases that pass through these less occuring activities or it should be avoided as much as possible to avoid delays.
 
 ### Process benchmarking
-![alt text](https://github.com/nkwachiabel/Process-Mining-Order-to-cash/blob/main/Images/Process%20Benchmarking.jpg?raw=true)
+![alt text](https://github.com/nkwachiabel/Process-Mining-Helpdesk-of-an-Italian-coy/blob/main/Images/Process%20benckmarking.jpg?raw=true)
 
-The process benchmarking page helps to compare different process variants using various filters; Business Area, Division, Changes. It also contains some metrics such as the median order fulfilment time, and how many orders in the selected variant. 
+The process benchmarking page helps to compare different process variants using various filters; Products, Responsible section, Service type. It also contains some metrics such as the median duration, FCR rate, SLR breach rate, and how many tickets are in the selected variant. 
 
-For example, in the above we can see that while the median order fulfilment time in Variant 2 is 0 days, the median order fulfilment time is 7 days. It can further be stated that cases that starts with <i>Create Delivery</i> activity are completed faster than cases that starts with <i>Create Sales Order Item</i>. A possible explanation can be that for cases that starts with <i>Create Delivery</i> activity, the requested item is available and can be issued immediately, while for the case that starts with <i>Create Sales Order Item</i>, it takes a median of 3 days for the goods to be ready for delivery. Additionally, 2 days delay is introduced between the <i>Pro forma invoice</i> and <i>Create Invoice</i> activity. This may be because of manual approval process inherent between these activities.
+In the above, we are benchmarking Variant 1 with Variant 2. Asides the number of tickets, we can see that they have similar median duration despite the huge variants in the number of tickets. The FCR rate for Variant 1 is higher than Variant 2. The SLA breach rate for Variant 1 is lower than Variant 2. Looking at the process flow graph, even though Variant 2 has an additional activity (<i>Wait</i>), the median duration is still the same for both Variants. One insight gotten by this is that Variant 2 is only performed by Responsible Section Value 2. This is however not related to one particular product or service type (because of the 2,366 tickets in Variant 1, responsible section Value 1 is responsible for 2,266 tickets. This may be that this process is strictly followed for certain types of tickets which are handled by responsible section Value 1.
 
+## User analysis
+![alt text](https://github.com/nkwachiabel/Process-Mining-Helpdesk-of-an-Italian-coy/blob/main/Images/Resource%20analysis.jpg?raw=true)
+
+This page shows information relating to a particular case by using the filter at the top right of the screen.
 
 
 ## Order details
