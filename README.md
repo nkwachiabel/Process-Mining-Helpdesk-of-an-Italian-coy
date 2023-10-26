@@ -166,3 +166,5 @@ Contributions to this repository are welcome! If you encounter any issues or hav
 
 # Contact
 For any questions or inquiries, please contact nkwachiabel@gmail.com
+
+<a href="https://github.com/nkwachiabel/Process-Mining-Helpdesk-of-an-Italian-coy/blob/main/Outputs/Helpdesk%20log%20of%20an%20Italian%20company.pdf" class="image fit" type="application/pdf"><img src="https://github.com/nkwachiabel/Process-Mining-Helpdesk-of-an-Italian-coy/blob/main/Images/Cover%20Page.png" alt=""></a>
